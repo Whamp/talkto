@@ -15,3 +15,12 @@ ignoredBuiltDependencies:
   # Docs site (apps/docs): Astro depends on sharp, which ships prebuilt binaries; its install
   # script only rebuilds from source when no prebuild matches.
   - sharp
+
+overrides:
+  # The MCP SDK builds its schemas with zod when the Worker starts. Better Auth, which TalkTo
+  # imports lazily, also uses zod; sharing one copy puts zod behind that lazy import, and the
+  # bundle then calls zod before it loads ("ZodLazy is not a constructor"). A separate patched
+  # copy for the SDK (4.6.6 or later fixes GHSA-mrhx-c7xc-m3w5) keeps its zod eager.
+  "@modelcontextprotocol/core>zod": 4.6.6
+  "@modelcontextprotocol/server>zod": 4.6.6
+  "@modelcontextprotocol/client>zod": 4.6.6

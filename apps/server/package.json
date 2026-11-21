@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@better-auth/oauth-provider": "1.7.27",
-    "@modelcontextprotocol/server": "2.0.0",
+    "@modelcontextprotocol/server": "2.4.0",
     "@noble/hashes": "2.4.0",
     "@sentry/cloudflare": "10.74.0",
     "@talkto/api": "workspace:*",
@@ -28,7 +28,7 @@
     "stripe": "22.6.2"
   },
   "devDependencies": {
-    "@modelcontextprotocol/client": "2.0.0",
+    "@modelcontextprotocol/client": "2.4.0",
     "@types/node": "24.13.3",
     "ajv": "8.20.0",
     "ajv-formats": "3.0.1",
