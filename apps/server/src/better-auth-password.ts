@@ -40,13 +40,13 @@ const notImplemented = Schema.is(
   Schema.Struct({ code: Schema.Literal("ERR_METHOD_NOT_IMPLEMENTED") }),
 );
 
+const builtIn: PasswordFunctions = { hash: Native.hashPassword, verify: Native.verifyPassword };
+
 /**
  * Better Auth picks `node:crypto` scrypt through the `workerd` and `node` export conditions.
  * Cloudflare implements it; celld, a self-hosted Workers runtime, matches the same conditions but
  * throws ERR_METHOD_NOT_IMPLEMENTED. The first such refusal switches this isolate to `portable`.
  */
-const builtIn: PasswordFunctions = { hash: Native.hashPassword, verify: Native.verifyPassword };
-
 export const make = (native: PasswordFunctions = builtIn): PasswordFunctions => {
   let current = native;
   const withFallback =
