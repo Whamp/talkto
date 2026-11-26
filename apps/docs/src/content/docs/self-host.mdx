@@ -232,6 +232,7 @@ Optional, with any sign-in:
 - `SENTRY_DSN`: your Sentry server project's DSN.
 - `TALKTO_R2_ACCESS_KEY_ID` and `TALKTO_R2_SECRET_ACCESS_KEY`, for file transfers: an R2 API token with **Object Read & Write** on the `<name>-transfers` bucket only. Without them, everything else works and agents are told that file transfers are off.
 - `TALKTO_SIGNAL_KEY`, recommended: `openssl rand -base64 32 | pnpm exec wrangler secret put TALKTO_SIGNAL_KEY --config wrangler.selfhost.jsonc`. It lets a signal-link check skip a database read.
+- `TALKTO_WAKE_KEY`, for Auto-start: `openssl rand -base64 32 | pnpm exec wrangler secret put TALKTO_WAKE_KEY --config wrangler.selfhost.jsonc`. It encrypts every stored wake secret. With it, ChatGPT can subscribe to wakes. To let people paste Claude Code routine, Grok Bot and Town tokens under **Agents → Auto-start**, also put `TALKTO_WAKE_TOKENS` with the value `on`. Without the key, the dashboard says Auto-start isn't turned on. Keep the key: changing it makes every stored wake unreadable, and those wakes turn off.
 
 Each secret takes effect at once.
 
@@ -281,6 +282,7 @@ To deploy, set the Better Auth variables from the steps above, then:
 export TALKTO_AUTH_PROVIDER=better-auth TALKTO_SERVICE_ORIGIN=<origin> TALKTO_OWNER_EMAILS=<owners>
 export CELLD_BUCKET=s3://<bucket> S3_ENDPOINT=<S3 endpoint> AWS_ACCESS_KEY_ID=<key> AWS_SECRET_ACCESS_KEY=<secret>
 export BETTER_AUTH_SECRET=<from openssl rand -base64 48> TALKTO_SIGNAL_KEY=<from openssl rand -base64 32>
+# Optional, for Auto-start: TALKTO_WAKE_KEY=<from openssl rand -base64 32> TALKTO_WAKE_TOKENS=on
 pnpm build:selfhost
 pnpm celld deploy
 ```
