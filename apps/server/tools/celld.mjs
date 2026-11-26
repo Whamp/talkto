@@ -85,6 +85,8 @@ config.assets.directory = "celld-assets";
 
 // Signed transfer links reach the binding's objects in the fleet bucket, where celld keeps them
 // under r2/<bucket_name>/. Transfers stay off until the store's address and keys are all set.
+// Wakes (Auto-start) stay off until TALKTO_WAKE_KEY is set; pasted routine tokens also need
+// TALKTO_WAKE_TOKENS=on.
 delete config.vars.TALKTO_R2_ACCOUNT_ID;
 for (const name of [
   "BETTER_AUTH_SECRET",
@@ -92,6 +94,8 @@ for (const name of [
   "TALKTO_R2_OBJECT_BASE",
   "TALKTO_R2_ACCESS_KEY_ID",
   "TALKTO_R2_SECRET_ACCESS_KEY",
+  "TALKTO_WAKE_KEY",
+  "TALKTO_WAKE_TOKENS",
 ]) {
   const value = process.env[name]?.trim();
   if (value) config.vars[name] = value;
